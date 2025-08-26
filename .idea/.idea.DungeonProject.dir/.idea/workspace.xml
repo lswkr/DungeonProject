@@ -10,20 +10,11 @@
     <list default="true" id="9fbf4f11-01a4-46c3-845b-3b9ae3ccdee5" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonProject.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPEnemyCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPEnemyCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/DPGameplayTags.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/DPGameplayTags.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Input/DPInputConfig.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Input/DPInputConfig.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPGameplayAbility.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPEnemyCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPEnemyCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/DPGameplayTags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/DPGameplayTags.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Input/DPInputComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Input/DPInputComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Input/DPInputConfig.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Input/DPInputConfig.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Interaction/HighlightInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Interaction/HighlightInterface.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Player/DPPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Player/DPPlayerController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -148,6 +139,10 @@
       <workItem from="1756125328628" duration="9537000" />
       <workItem from="1756139522484" duration="1723000" />
       <workItem from="1756143910192" duration="1199000" />
+      <workItem from="1756205838233" duration="3870000" />
+      <workItem from="1756210415081" duration="1637000" />
+      <workItem from="1756212665935" duration="357000" />
+      <workItem from="1756215143063" duration="1411000" />
     </task>
     <servers />
   </component>

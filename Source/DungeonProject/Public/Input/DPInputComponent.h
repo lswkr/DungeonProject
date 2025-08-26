@@ -39,7 +39,6 @@ void UDPInputComponent::BindAbilityActions(const UDPInputConfig* InputConfig, Us
 			{
 				BindAction(Action.InputAction, Object, ETriggerEvent::Completed, ReleasedFunc);
 			}
-
 			if (HeldFunc)
 			{
 				BindAction(Action.InputAction, Object, ETriggerEvent::Triggered, HeldFunc);

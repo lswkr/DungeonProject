@@ -17,6 +17,8 @@ class UDPInputConfig;
 class USplineComponent;
 class IHighlightInterface;
 class UNiagaraSystem;
+class UDPAbilitySystemComponent;
+
 struct FInputActionValue;
 
 
@@ -48,12 +50,12 @@ private:
 	TObjectPtr<UInputAction> MoveAction;
 
 	void Input_Move(const FInputActionValue& InputActionValue);
-
+	void Input_Look(const FInputActionValue& InputActionValue);
+	
 	void CursorTrace();
-
 	TObjectPtr<AActor> LastActor;
 	TObjectPtr<AActor> ThisActor;
-	FHitResult HitResult;
+	FHitResult CursorHit;
 	static void HighlightActor(AActor* InActor);
 	static void UnhighlightActor(AActor* InActor);
 
@@ -63,6 +65,11 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UDPInputConfig> InputConfig;
+
+	UPROPERTY()
+	TObjectPtr<UDPAbilitySystemComponent> DPAbilitySystemComponent;
+
+	UDPAbilitySystemComponent* GetASC();
 
 	FVector CachedDestination = FVector::ZeroVector;
 	float FollowTime = 0.f;
@@ -85,3 +92,5 @@ private:
 
 	
 };
+
+
