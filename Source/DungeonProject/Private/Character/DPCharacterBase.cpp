@@ -2,33 +2,68 @@
 
 
 #include "Character/DPCharacterBase.h"
+#include "AbilitySystemComponent.h"
+#include "AbilitySystem/DPAbilitySystemComponent.h"
+#include "Components/CapsuleComponent.h"
 
-// Sets default values
+
 ADPCharacterBase::ADPCharacterBase()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetGenerateOverlapEvents(true);
 }
 
-// Called when the game starts or when spawned
+
 void ADPCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
+void ADPCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
+{
+	check(IsValid(GetAbilitySystemComponent()));
+	check(GameplayEffectClass);
+
+	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	ContextHandle.AddSourceObject(this);
+	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+}
+
+void ADPCharacterBase::InitializeDefaultAttributes() const
+{
+	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
+	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+}
+
+void ADPCharacterBase::AddCharacterAbilities()
+{
+	UDPAbilitySystemComponent* DPASC = Cast<UDPAbilitySystemComponent>(AbilitySystemComponent);
+	if (!HasAuthority()) return;
+
+	DPASC->AddCharacterAbilities(StartupAbilities);
+}
+
 void ADPCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
-// Called to bind functionality to input
-void ADPCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ADPCharacterBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }
+
+UAbilitySystemComponent* ADPCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 

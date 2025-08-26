@@ -13,5 +13,8 @@ UCLASS()
 class DUNGEONPROJECT_API UDPAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+
+public:
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 	
 };

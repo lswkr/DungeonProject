@@ -7,6 +7,14 @@ FDPGameplayTags FDPGameplayTags::GameplayTags;
 
 void FDPGameplayTags::InitializeNativeGameplayTags()
 {
+
+	GameplayTags.Abilities_Status_Equipped = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Status.Equipped"),
+		FString("Equipped Status")
+		);
+
+	
+	/* Primary Attributes */
 	GameplayTags.Attributes_Primary_Strength = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Primary.Strength"),
 		FString("Increase MaxHP and Attack Power")
@@ -27,7 +35,57 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 		FString("Increase Defense Power and Amount of Health/Mana Regenerated")
 		);
 
-	/*FGameplayTag ;
-	FGameplayTag ;
-	FGameplayTag ;*/
+	
+	/* Secondary Attributes */
+	GameplayTags.Attributes_Secondary_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Secondary.Attack"),
+	FString("Attack Power")
+	);
+	
+	GameplayTags.Attributes_Secondary_Defense = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Secondary.Defense"),
+	FString("Defense Power")
+	);
+
+	GameplayTags.Attributes_Secondary_CriticalHitChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Secondary.CriticalHitChance"),
+	FString("Chance to Increase Damage")
+	);
+
+	GameplayTags.Attributes_Secondary_BlockChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Secondary.BlockChance"),
+	FString("Chance to Block")
+	);
+
+	GameplayTags.Attributes_Secondary_HealthRegeneration = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Secondary.HealthRegeneration"),
+	FString("Amount of Health Regenerated Every 1 Second")
+	);
+
+	GameplayTags.Attributes_Secondary_ManaRegeneration = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Secondary.ManaRegeneration"),
+	FString("Amount of Mana Regenerated Every 1 Second")
+	);
+
+	
+	/* Vital Attributes */
+	GameplayTags.Attributes_Vital_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Vital.MaxHealth"),
+	FString("Maximum Amount of Health Obtainable")
+	);
+
+	GameplayTags.Attributes_Vital_MaxMana = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Vital.MaxMana"),
+	FString("Maximum Amount of Mana Obtainable")
+	);
+
+	GameplayTags.Attributes_Vital_Health = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Vital.Health"),
+	FString("Amount of Current Health")
+	);
+
+	GameplayTags.Attributes_Vital_Mana = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Attributes.Vital.Mana"),
+	FString("Amount of Current Mana")
+	);
 }
