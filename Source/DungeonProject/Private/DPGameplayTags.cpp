@@ -8,6 +8,7 @@ FDPGameplayTags FDPGameplayTags::GameplayTags;
 void FDPGameplayTags::InitializeNativeGameplayTags()
 {
 
+	
 	/* Player Tags */
 	GameplayTags.Player_Block_InputPressed = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Player.Block.InputPressed"),
@@ -29,6 +30,37 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 		FString("Block CursorTrace Callback for Input")
 		);
 
+	/* Input Tags */
+	GameplayTags.InputTag_Q = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.Q"),
+		FString("Input Tag for Q")
+		);
+	
+	GameplayTags.InputTag_W = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.W"),
+		FString("Input Tag for W")
+		);
+	
+	GameplayTags.InputTag_E = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.E"),
+		FString("Input Tag for E")
+		);
+	
+	GameplayTags.InputTag_R = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.R"),
+		FString("Input Tag for R")
+		);
+	
+	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.LMB"),
+		FString("Input Tag for LMB")
+		);
+	
+	GameplayTags.InputTag_RMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.RMB"),
+		FString("Input Tag for RMB")
+		);
+	
 
 	
 	GameplayTags.Abilities_Status_Equipped = UGameplayTagsManager::Get().AddNativeGameplayTag(

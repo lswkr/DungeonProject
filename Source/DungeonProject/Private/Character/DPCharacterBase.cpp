@@ -24,6 +24,10 @@ void ADPCharacterBase::BeginPlay()
 	
 }
 
+void ADPCharacterBase::InitAbilityActorInfo()
+{
+}
+
 void ADPCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));

@@ -14,6 +14,7 @@
 #include "Interaction/HighlightInterface.h"
 #include "NiagaraFunctionLibrary.h"
 
+
 ADPPlayerController::ADPPlayerController()
 {
 	bReplicates = true;
@@ -28,13 +29,16 @@ void ADPPlayerController::BeginPlay()
 	check(DPContext);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+
 	if (Subsystem)
 	{
 		Subsystem->AddMappingContext(DPContext, 0);
 	}
 
-	bShowMouseCursor = true;
-	DefaultMouseCursor = EMouseCursor::Default;
+	// bShowMouseCursor = true;
+	// DefaultMouseCursor = EMouseCursor::Default;
+	
+	
 }
 
 void ADPPlayerController::SetupInputComponent()
@@ -44,6 +48,11 @@ void ADPPlayerController::SetupInputComponent()
 	UDPInputComponent* DPInputComponent = CastChecked<UDPInputComponent>(InputComponent);
 
 	DPInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ADPPlayerController::Input_Move);
+	DPInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADPPlayerController::Input_Look);
+	DPInputComponent->BindAction(ClickAction, ETriggerEvent::Started, this, &ADPPlayerController::InputPressed_RMB);
+	DPInputComponent->BindAction(ClickAction, ETriggerEvent::Completed, this, &ADPPlayerController::InputReleased_RMB);
+	DPInputComponent->BindAction(ClickAction, ETriggerEvent::Triggered, this, &ADPPlayerController::InputHeld_RMB);
+	
 	DPInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
 
@@ -58,6 +67,7 @@ void ADPPlayerController::PlayerTick(float DeltaTime)
 
 void ADPPlayerController::CursorTrace()
 {
+	
 	if (GetASC() && GetASC()->HasMatchingGameplayTag(FDPGameplayTags::Get().Player_Block_CursorTrace))
 	{
 		UnhighlightActor(LastActor);
@@ -71,6 +81,7 @@ void ADPPlayerController::CursorTrace()
 	const ECollisionChannel TraceChannel = ECC_Visibility;
 	GetHitResultUnderCursor(TraceChannel, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;
+	
 
 	LastActor = ThisActor;
 	if (IsValid(CursorHit.GetActor()) && CursorHit.GetActor()->Implements<UHighlightInterface>())
@@ -106,6 +117,8 @@ void ADPPlayerController::AutoRun()
 		{
 			bAutoRunning = false;
 		}
+
+		//TODO: Targeting이면
 	}
 }
 
@@ -131,22 +144,24 @@ void ADPPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 	{
 		return;
 	}
-
+	UE_LOG(LogTemp, Warning, TEXT("AbilityInputTagPressed Activating Tag: [%s]"),*InputTag.ToString());
+	
 	bAutoRunning = false;
 	if (GetASC())
 	{
 		GetASC()->AbilityInputTagPressed(InputTag);
 	}
-	
 }
 
 void ADPPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
+	
 	if (GetASC() && GetASC()->HasMatchingGameplayTag(FDPGameplayTags::Get().Player_Block_InputReleased))
 	{
 		return;
 	}
 	
+	UE_LOG(LogTemp, Warning, TEXT("AbilityInputTagReleased"));
 	if (GetASC())
 	{
 		GetASC()->AbilityInputTagReleased(InputTag);
@@ -154,30 +169,7 @@ void ADPPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 
 	if (TargetingStatus != ETargetingStatus::TargetingEnemy)
 	{
-		const APawn* ControlledPawn = GetPawn();
-		if (FollowTime <= ShortPressThreshold && ControlledPawn)
-		{
-			if (GetASC() && !GetASC()->HasMatchingGameplayTag(FDPGameplayTags::Get().Player_Block_InputPressed))
-			{
-				UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,ClickNiagaraSystem, CachedDestination);
-			}
-			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
-			{
-				Spline->ClearSplinePoints();
-
-				for (const FVector& PointLocation : NavPath->PathPoints)
-				{
-					Spline->AddSplinePoint(PointLocation, ESplineCoordinateSpace::World);
-				}
-				if (NavPath->PathPoints.Num() > 0)
-				{
-					CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num()-1];
-					bAutoRunning = true;
-				}
-			}
-		}
-
-		FollowTime = 0;
+		
 		TargetingStatus = ETargetingStatus::NotTargeting;
 	}
 	
@@ -189,12 +181,9 @@ void ADPPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 	{
 		return;
 	}
-
-	if (GetASC())
-	{
-		GetASC()->AbilityInputTagHeld(InputTag);
-		return;
-	}
+	
+	UE_LOG(LogTemp, Warning, TEXT("AbilityInputTagHeld Activating, Tag: [%s]"),*InputTag.ToString());
+	
 }
 
 UDPAbilitySystemComponent* ADPPlayerController::GetASC()
@@ -223,7 +212,7 @@ void ADPPlayerController::Input_Move(const FInputActionValue& InputActionValue)
 		if (MovementVector.X != 0.f)
 		{
 			const FVector RightDirection = MovementRotation.RotateVector(FVector::RightVector);
-			ControlledPawn->AddMovementInput(RightDirection, MovementVector.Y);
+			ControlledPawn->AddMovementInput(RightDirection, MovementVector.X);
 		}
 	}
 	
@@ -233,13 +222,60 @@ void ADPPlayerController::Input_Move(const FInputActionValue& InputActionValue)
 void ADPPlayerController::Input_Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
-	
+	UE_LOG(LogTemp, Warning, TEXT("Input_Look Activating"));
 	if (APawn* ControlledPawn = GetPawn<APawn>())
-	{
-
+	{	
 		if (LookAxisVector.X != 0.f)
 		{
 			ControlledPawn->AddControllerYawInput(LookAxisVector.X);
 		}
 	}
+}
+
+void ADPPlayerController::InputPressed_RMB(const FInputActionValue& InputActionValue)
+{
+	
+}
+
+void ADPPlayerController::InputHeld_RMB(const FInputActionValue& InputActionValue)
+{
+	FollowTime += GetWorld()->GetDeltaSeconds();
+	if (CursorHit.bBlockingHit)
+	{
+		CachedDestination = CursorHit.ImpactPoint;
+	}
+
+	if (APawn* ControlledPawn = GetPawn())
+	{
+		const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+		ControlledPawn->AddMovementInput(WorldDirection);
+	}
+}
+
+void ADPPlayerController::InputReleased_RMB(const FInputActionValue& InputActionValue)
+{
+	const APawn* ControlledPawn = GetPawn();
+	if (FollowTime <= ShortPressThreshold && ControlledPawn)
+	{
+		if (GetASC() && !GetASC()->HasMatchingGameplayTag(FDPGameplayTags::Get().Player_Block_InputPressed))
+		{
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,ClickNiagaraSystem, CachedDestination);
+		}
+		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+		{
+			Spline->ClearSplinePoints();
+
+			for (const FVector& PointLocation : NavPath->PathPoints)
+			{
+				Spline->AddSplinePoint(PointLocation, ESplineCoordinateSpace::World);
+			}
+			if (NavPath->PathPoints.Num() > 0)
+			{
+				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num()-1];
+				bAutoRunning = true;
+			}
+		}
+	}
+
+	FollowTime = 0;
 }

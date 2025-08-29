@@ -6,6 +6,11 @@
 #include "DPGameplayTags.h"
 #include "AbilitySystem/Abilities/DPGameplayAbility.h"
 
+void UDPAbilitySystemComponent::AbilityActorInfoSet()
+{
+	
+}
+
 void UDPAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
 	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
@@ -47,7 +52,6 @@ void UDPAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& Inpu
 	{
 		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag) && AbilitySpec.IsActive())
 		{
-
 			AbilitySpecInputReleased(AbilitySpec);
 			InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
 		}
@@ -71,3 +75,5 @@ void UDPAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag
 		}
 	}
 }
+
+

@@ -37,7 +37,7 @@ class DUNGEONPROJECT_API ADPPlayerController : public APlayerController
 public:
 	ADPPlayerController();
 	virtual void PlayerTick(float DeltaTime) override;
-
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -48,9 +48,18 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
-
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> LookAction;
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> ClickAction;
+	
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
+
+	void InputPressed_RMB(const FInputActionValue& InputActionValue);
+	void InputHeld_RMB(const FInputActionValue& InputActionValue);
+	void InputReleased_RMB(const FInputActionValue& InputActionValue);
+	
 	
 	void CursorTrace();
 	TObjectPtr<AActor> LastActor;
@@ -79,7 +88,6 @@ private:
 	float ShortPressThreshold = 0.5f;
 	UPROPERTY(EditDefaultsOnly)
 	float AutoRunAcceptanceRadius = 50.f;
-	
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;

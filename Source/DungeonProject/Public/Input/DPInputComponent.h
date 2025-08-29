@@ -18,7 +18,6 @@ class DUNGEONPROJECT_API UDPInputComponent : public UEnhancedInputComponent
 public:
 	template<class UserClass, typename PressedFuncType, typename ReleasedFuncType, typename HeldFuncType>
 	void BindAbilityActions(const UDPInputConfig* InputConfig, UserClass* Object, PressedFuncType PressedFunc, ReleasedFuncType ReleasedFunc, HeldFuncType HeldFunc);
-	
 };
 
 template <class UserClass, typename PressedFuncType, typename ReleasedFuncType, typename HeldFuncType>
@@ -33,20 +32,16 @@ void UDPInputComponent::BindAbilityActions(const UDPInputConfig* InputConfig, Us
 		{
 			if (PressedFunc)
 			{
-				BindAction(Action.InputAction, Object, ETriggerEvent::Started, PressedFunc);
+				BindAction(Action.InputAction, ETriggerEvent::Started, Object, PressedFunc, Action.InputTag); //한 번만 호출
 			}
 			if (ReleasedFunc)
 			{
-				BindAction(Action.InputAction, Object, ETriggerEvent::Completed, ReleasedFunc);
+				BindAction(Action.InputAction, ETriggerEvent::Completed, Object, ReleasedFunc, Action.InputTag); //누르기 끝났을 때 호출
 			}
 			if (HeldFunc)
 			{
-				BindAction(Action.InputAction, Object, ETriggerEvent::Triggered, HeldFunc);
+				BindAction(Action.InputAction, ETriggerEvent::Triggered, Object, HeldFunc, Action.InputTag); //프레임 단위로 호출
 			}
-
-
 		}
-
-		
 	}
 }

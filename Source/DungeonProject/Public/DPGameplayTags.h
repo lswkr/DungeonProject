@@ -21,6 +21,14 @@ public:
 	FGameplayTag Player_Block_InputHeld;
 	FGameplayTag Player_Block_CursorTrace;
 
+	/* Input Tags */
+	FGameplayTag InputTag_Q;
+	FGameplayTag InputTag_W;
+	FGameplayTag InputTag_E;
+	FGameplayTag InputTag_R;
+	FGameplayTag InputTag_LMB;
+	FGameplayTag InputTag_RMB;
+	
 	
 	FGameplayTag Abilities_Status_Equipped;
 	
