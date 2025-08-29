@@ -52,6 +52,8 @@ public:
 	FGameplayTag Attributes_Vital_Health;
 	FGameplayTag Attributes_Vital_Mana;
 	
+	/* Effects */
+	FGameplayTag Effects_HitReact;
 	
 private:
 	static FDPGameplayTags GameplayTags;

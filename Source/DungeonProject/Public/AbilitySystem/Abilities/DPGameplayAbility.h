@@ -17,5 +17,7 @@ class DUNGEONPROJECT_API UDPGameplayAbility : public UGameplayAbility
 public:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	FGameplayTag StartupInputTag;
+
+	
 	
 };

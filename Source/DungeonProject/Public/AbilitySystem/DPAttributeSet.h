@@ -34,7 +34,7 @@ struct FEffectProperties
 	UAbilitySystemComponent* SourceASC = nullptr;
 	
 	UPROPERTY()
-	AActor* SourceActor = nullptr;
+	AActor* SourceAvatarActor = nullptr;
 
 	UPROPERTY()
 	AController* SourceController = nullptr;
@@ -46,7 +46,7 @@ struct FEffectProperties
 	UAbilitySystemComponent* TargetASC = nullptr;
 	
 	UPROPERTY()
-	AActor* TargetActor = nullptr;
+	AActor* TargetAvatarActor = nullptr;
 
 	UPROPERTY()
 	AController* TargetController = nullptr;
@@ -116,9 +116,7 @@ public:
 	FGameplayAttributeData ManaRegeneration;
 	ATTRIBUTE_ACCESSORS(UDPAttributeSet, ManaRegeneration);
 
-
 	
-
 	/* Vital Attributes */
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Vital Attributes")
 	FGameplayAttributeData MaxHealth;
@@ -135,6 +133,17 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Mana, Category = "Vital Attributes")
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UDPAttributeSet, Mana);
+
+	
+	/* Meta Attributes */
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UDPAttributeSet, IncomingDamage)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData IncomingXP;
+	ATTRIBUTE_ACCESSORS(UDPAttributeSet, IncomingXP)
+
 
 	
 	/* Rep Func */
@@ -179,5 +188,9 @@ public:
 
 	UFUNCTION()
 	void OnRep_Mana(const FGameplayAttributeData& OldMana);
+
+private:
+	void HandleIncomingDamage(const FEffectProperties& Props);
+	void SetEffectProperties(const struct FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 	
 };

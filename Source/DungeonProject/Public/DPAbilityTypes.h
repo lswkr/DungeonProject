@@ -1,0 +1,110 @@
+#pragma once
+
+#include "GameplayEffectTypes.h"
+#include "DPAbilityTypes.generated.h"
+
+class UGameplayEffect;
+
+USTRUCT(BlueprintType)
+struct FDamageEffectParams
+{
+	GENERATED_BODY()
+
+	FDamageEffectParams() {}
+
+	UPROPERTY(BlueprintReadWrite)
+	TObjectPtr<UObject> WorldContextObject = nullptr;
+
+	UPROPERTY(BlueprintReadWrite)
+	TSubclassOf<UGameplayEffect> DamageGameplayEffectClass = nullptr;
+
+	UPROPERTY(BlueprintReadWrite)
+	TObjectPtr<UAbilitySystemComponent> SourceAbilitySystemComponent;
+
+	UPROPERTY(BlueprintReadWrite)
+	TObjectPtr<UAbilitySystemComponent> TargetAbilitySystemComponent;
+
+	UPROPERTY(BlueprintReadWrite)
+	float BaseDamage = 0.f;
+
+	UPROPERTY(BlueprintReadWrite)
+	float AbilityLevel = 1.f;
+
+	UPROPERTY(BlueprintReadWrite)
+	float DebuffDuration = 0.f;
+	
+	UPROPERTY(BlueprintReadWrite)
+	float DebuffFrequency = 0.f;
+
+	UPROPERTY(BlueprintReadWrite)
+	float DeathImpulseMagnitude = 0.f;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector DeathImpulse = FVector::ZeroVector;
+};
+
+USTRUCT(BlueprintType)
+struct FDPGameplayEffectContext : public FGameplayEffectContext
+{
+	GENERATED_BODY()
+
+public:
+	bool IsCriticalHit() const {return bIsCriticalHit;}
+
+	virtual UScriptStruct* GetScriptStruct() const override
+	{
+		return StaticStruct();
+	}
+
+	// virtual FGameplayEffectContext Duplicate() const
+	// {
+	// 	FDPGameplayEffectContext* NewContext = new FDPGameplayEffectContext();
+	// 	*NewContext = *this;
+	// 	if (GetHitResult())
+	// 	{
+	// 		NewContext->AddHitResult(*GetHitResult(), true);
+	// 	}
+	// 	return NewContext;
+	// }
+
+	virtual FDPGameplayEffectContext* Duplicate() const
+	{
+		FDPGameplayEffectContext* NewContext = new FDPGameplayEffectContext();
+		*NewContext = *this;
+		if (GetHitResult())
+		{
+			NewContext->AddHitResult(*GetHitResult(), true);
+		}
+		return NewContext;
+	}
+	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override;
+	
+protected:
+	UPROPERTY()
+	bool bIsCriticalHit = false;
+
+	UPROPERTY()
+	bool bIsSuccessfulDebuff = false;
+
+	UPROPERTY()
+	float DebuffDamage = 0.f;
+
+	UPROPERTY()
+	float DebuffDuration = 0.f;
+
+	UPROPERTY()
+	float DebuffFrequency = 0.f;
+
+	UPROPERTY()
+	FVector DeathImpulse = FVector::ZeroVector;
+};
+
+template<>
+struct TStructOpsTypeTraits<FDPGameplayEffectContext> : public TStructOpsTypeTraitsBase2<FDPGameplayEffectContext>
+{
+	enum
+	{
+		WithNetSerializer = true,
+		WithCopy = true
+	};
+};

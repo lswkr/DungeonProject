@@ -143,4 +143,12 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 	FName("Attributes.Vital.Mana"),
 	FString("Amount of Current Mana")
 	);
+
+	/* Effects */
+	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Effects.HitReact"),
+	FString("Tag Granted when Hit Reacting")
+	);
+
+	
 }

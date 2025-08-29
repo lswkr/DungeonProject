@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interaction/CombatInterface.h"
 #include "DPCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -13,7 +14,7 @@ class UGameplayEffect;
 class UGameplayAbility;
 
 UCLASS()
-class DUNGEONPROJECT_API ADPCharacterBase : public ACharacter, public IAbilitySystemInterface
+class DUNGEONPROJECT_API ADPCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
