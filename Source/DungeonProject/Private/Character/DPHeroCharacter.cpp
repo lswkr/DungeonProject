@@ -8,6 +8,9 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Actor/Items/DPWeaponBase.h"
+#include "Components/BoxComponent.h"
+
 
 ADPHeroCharacter::ADPHeroCharacter()
 {
@@ -39,6 +42,49 @@ void ADPHeroCharacter::PossessedBy(AController* NewController)
 void ADPHeroCharacter::OnRep_PlayerState()
 {
 	InitAbilityActorInfo();
+}
+
+void ADPHeroCharacter::ToggleCollision_Implementation(bool bShouldEnable)
+{
+	check(Weapon);
+
+	if (bShouldEnable)
+	{
+		Weapon->GetCollisionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	}
+	else
+	{
+		Weapon->GetCollisionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+	
+}
+
+void ADPHeroCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	GetMesh()->HideBoneByName(TEXT("sword_bottom"), EPhysBodyOp::PBO_None);//스워드 및 방패 숨기기
+	GetMesh()->HideBoneByName(TEXT("sword_top"), EPhysBodyOp::PBO_None);//스워드 및 방패 숨기기
+
+	if(HasAuthority())
+	{
+		FActorSpawnParameters ActorSpawnParameters;
+		ActorSpawnParameters.Owner = this;
+		ActorSpawnParameters.Instigator = Cast<APawn>(this);
+		ActorSpawnParameters.SpawnCollisionHandlingOverride =  ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		ActorSpawnParameters.TransformScaleMethod = ESpawnActorScaleMethod::MultiplyWithRoot;
+
+		FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::KeepRelative, EAttachmentRule::KeepWorld, true);
+		
+		checkf(WeaponClass,TEXT("WeaponClass isn't selected in DPHeroCharacter. Please select WeaponClass."))
+
+		Weapon = GetWorld()->SpawnActor<ADPWeaponBase>(WeaponClass, FVector::ZeroVector, FRotator::ZeroRotator,ActorSpawnParameters);
+		Weapon->AttachToComponent(GetMesh(), AttachmentTransformRules, WeaponSocketName);
+		
+		
+	}
+	
+
 }
 
 void ADPHeroCharacter::InitAbilityActorInfo()

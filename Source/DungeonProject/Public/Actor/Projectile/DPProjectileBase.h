@@ -10,6 +10,7 @@
 class UBoxComponent;
 class UProjectileMovementComponent;
 class UNiagaraSystem;
+class UNiagaraComponent;
 
 UENUM(BlueprintType)
 enum class EProjectileType : uint8
@@ -26,7 +27,7 @@ class DUNGEONPROJECT_API ADPProjectileBase : public AActor
 public:	
 	ADPProjectileBase();
 
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
 	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true))

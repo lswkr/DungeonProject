@@ -5,6 +5,7 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "AbilitySystem/DPAbilitySystemLibrary.h"
 #include "Components/AudioComponent.h"
@@ -29,6 +30,7 @@ ADPProjectileBase::ADPProjectileBase()
 	ProjectileMovement->InitialSpeed = 550.f;
 	ProjectileMovement->MaxSpeed = 550.f;
 	ProjectileMovement->ProjectileGravityScale = 0.f;
+
 }
 
 // Called when the game starts or when spawned

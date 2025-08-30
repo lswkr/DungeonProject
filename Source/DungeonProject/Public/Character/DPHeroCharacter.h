@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Character/DPCharacterBase.h"
+#include "Interaction/PlayerInterface.h"
+
 #include "DPHeroCharacter.generated.h"
 
 /**
@@ -13,9 +15,9 @@
 class ADPPlayerState;
 class UCameraComponent;
 class USpringArmComponent;
-
+class ADPWeaponBase;
 UCLASS()
-class DUNGEONPROJECT_API ADPHeroCharacter : public ADPCharacterBase
+class DUNGEONPROJECT_API ADPHeroCharacter : public ADPCharacterBase, public IPlayerInterface
 {
 	GENERATED_BODY()
 
@@ -30,6 +32,13 @@ public:
 
 	FTimerHandle DeathTimer;
 
+	UFUNCTION(BlueprintCallable)
+	ADPWeaponBase* GetWeapon() const {return Weapon;}
+
+	virtual void ToggleCollision_Implementation(bool bShouldEnable) override;
+	
+protected:
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -37,7 +46,16 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USpringArmComponent> SpringArm;
+	
+	UPROPERTY()
+	TObjectPtr<ADPWeaponBase> Weapon;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	TSubclassOf<ADPWeaponBase> WeaponClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	FName WeaponSocketName;
+	
 	virtual void InitAbilityActorInfo() override;
 	
 };
