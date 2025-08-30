@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DPAbilityTypes.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "DPAbilitySystemLibrary.generated.h"
 
@@ -13,5 +14,19 @@ UCLASS()
 class DUNGEONPROJECT_API UDPAbilitySystemLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
+
+public:
 	
+
+	/* Gameplay Mechanics */
+	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|GameplayMechanics")
+	static bool bIsHostile(AActor* FirstActor, AActor* SecondActor);
+
+	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|GameplayMechanics")
+	static FGameplayEffectContextHandle ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams);
+
+	
+	/* Effect Context Setters */
+	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|GameplayEffect")
+	static void SetDeathImpulse(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, const FVector& InImpulse);
 };

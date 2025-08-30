@@ -50,6 +50,9 @@ struct FDPGameplayEffectContext : public FGameplayEffectContext
 
 public:
 	bool IsCriticalHit() const {return bIsCriticalHit;}
+	FVector GetDeathImpulse() const {return DeathImpulse;}
+
+	void SetDeathImpulse(const FVector& InImpulse) {DeathImpulse = InImpulse;}
 
 	virtual UScriptStruct* GetScriptStruct() const override
 	{

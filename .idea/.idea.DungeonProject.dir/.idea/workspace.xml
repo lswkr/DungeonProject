@@ -9,17 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9fbf4f11-01a4-46c3-845b-3b9ae3ccdee5" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonProject.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/BP_HeroCharacter.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Game/BP_DPGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Game/BP_DPGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DungeonProject.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/DungeonProject.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAttributeSet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAttributeSet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/DPGameplayTags.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/DPGameplayTags.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPGameplayAbility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAttributeSet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAttributeSet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/DPGameplayTags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/DPGameplayTags.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/DPAbilityTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/DPAbilityTypes.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +31,7 @@
     <setting file="file://$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAttributeSet.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/DungeonProject/Public/Player/DPPlayerController.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Private/GameplayEffectTypes.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Source/Runtime/Engine/Classes/Components/PrimitiveComponent.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -169,6 +162,7 @@
       <workItem from="1756475504009" duration="287000" />
       <workItem from="1756475805172" duration="6123000" />
       <workItem from="1756489363379" duration="2320000" />
+      <workItem from="1756533489596" duration="6116000" />
     </task>
     <servers />
   </component>
