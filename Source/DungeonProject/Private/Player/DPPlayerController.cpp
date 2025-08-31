@@ -144,7 +144,6 @@ void ADPPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 	{
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("AbilityInputTagPressed Activating Tag: [%s]"),*InputTag.ToString());
 	
 	bAutoRunning = false;
 	if (GetASC())
@@ -160,8 +159,6 @@ void ADPPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	{
 		return;
 	}
-	
-	UE_LOG(LogTemp, Warning, TEXT("AbilityInputTagReleased"));
 	if (GetASC())
 	{
 		GetASC()->AbilityInputTagReleased(InputTag);
@@ -182,7 +179,6 @@ void ADPPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 		return;
 	}
 	
-	UE_LOG(LogTemp, Warning, TEXT("AbilityInputTagHeld Activating, Tag: [%s]"),*InputTag.ToString());
 	
 }
 
@@ -222,7 +218,6 @@ void ADPPlayerController::Input_Move(const FInputActionValue& InputActionValue)
 void ADPPlayerController::Input_Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D LookAxisVector = InputActionValue.Get<FVector2D>();
-	UE_LOG(LogTemp, Warning, TEXT("Input_Look Activating"));
 	if (APawn* ControlledPawn = GetPawn<APawn>())
 	{	
 		if (LookAxisVector.X != 0.f)
@@ -264,7 +259,7 @@ void ADPPlayerController::InputReleased_RMB(const FInputActionValue& InputAction
 		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
 		{
 			Spline->ClearSplinePoints();
-
+			
 			for (const FVector& PointLocation : NavPath->PathPoints)
 			{
 				Spline->AddSplinePoint(PointLocation, ESplineCoordinateSpace::World);
@@ -275,6 +270,7 @@ void ADPPlayerController::InputReleased_RMB(const FInputActionValue& InputAction
 				bAutoRunning = true;
 			}
 		}
+
 	}
 
 	FollowTime = 0;

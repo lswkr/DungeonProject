@@ -6,6 +6,15 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "DPGameplayTags.h"
+#include "Game/DPGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+
+UAbilityInfo* UDPAbilitySystemLibrary::GetAbilityInfo(const UObject* WorldContextObject)
+{
+	const ADPGameModeBase* DPGameMode = Cast<ADPGameModeBase> (UGameplayStatics::GetGameMode(WorldContextObject));
+	if (DPGameMode == nullptr) return nullptr;
+	return DPGameMode->AbilityInfo;
+}
 
 bool UDPAbilitySystemLibrary::bIsHostile(AActor* FirstActor, AActor* SecondActor)
 {

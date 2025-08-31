@@ -13,5 +13,6 @@ UCLASS()
 class DUNGEONPROJECT_API ADPHUD : public AHUD
 {
 	GENERATED_BODY()
+
 	
 };

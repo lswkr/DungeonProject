@@ -60,13 +60,6 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 		FName("InputTag.RMB"),
 		FString("Input Tag for RMB")
 		);
-	
-
-	
-	GameplayTags.Abilities_Status_Equipped = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Abilities.Status.Equipped"),
-		FString("Equipped Status")
-		);
 
 	
 	/* Primary Attributes */
@@ -150,5 +143,50 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 	FString("Tag Granted when Hit Reacting")
 	);
 
+	/* Abilities */
+	GameplayTags.Abilities_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("Abilities.None"),
+			FString("No Ability - like the nullptr for Ability Tags")
+			);
+
+
+	GameplayTags.Abilities_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Attack"),
+		FString("Attack Ability Tag")
+		);
+
+
+	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.HitReact"),
+		FString("Hit React Ability Tag")
+		);
+
+	/* Abilities|Name */
+	GameplayTags.Abilities_Attack_DefaultAttack = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("Abilities.Attack.DefaultAttack"),
+			FString("DefaultAttack Ability Tag")
+			);
+	
+	/* Abilities|Status */
+
+	GameplayTags.Abilities_Status_Eligible = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Eligible"),
+	FString("Eligible Status")
+	);
+	
+	GameplayTags.Abilities_Status_Equipped = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Equipped"),
+	FString("Equipped Status")
+	);
+
+	GameplayTags.Abilities_Status_Locked = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Locked"),
+	FString("Locked Status")
+	);
+	
+	GameplayTags.Abilities_Status_Unlocked = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Abilities.Status.Unlocked"),
+	FString("Unlocked Status")
+	);
 	
 }

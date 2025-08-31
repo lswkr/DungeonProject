@@ -52,6 +52,7 @@ void ADPCharacterBase::AddCharacterAbilities()
 	if (!HasAuthority()) return;
 
 	DPASC->AddCharacterAbilities(StartupAbilities);
+	DPASC->AddCharacterPassiveAbilities(StartupPassiveAbilities);
 }
 
 void ADPCharacterBase::Tick(float DeltaTime)
@@ -68,6 +69,60 @@ void ADPCharacterBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 UAbilitySystemComponent* ADPCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+UAnimMontage* ADPCharacterBase::GetHitReactMontage_Implementation()
+{
+	return ICombatInterface::GetHitReactMontage_Implementation();
+}
+
+FVector ADPCharacterBase::GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag)
+{
+	return ICombatInterface::GetCombatSocketLocation_Implementation(MontageTag);
+}
+
+bool ADPCharacterBase::IsDead_Implementation() const
+{
+	return ICombatInterface::IsDead_Implementation();
+}
+
+AActor* ADPCharacterBase::GetAvatarActor_Implementation()
+{
+	return ICombatInterface::GetAvatarActor_Implementation();
+}
+
+TArray<FTaggedMontage> ADPCharacterBase::GetAttackMontages_Implementation()
+{
+	return ICombatInterface::GetAttackMontages_Implementation();
+}
+
+UNiagaraSystem* ADPCharacterBase::GetHitEffect_Implementation()
+{
+	return ICombatInterface::GetHitEffect_Implementation();
+}
+
+FTaggedMontage ADPCharacterBase::GetTaggedMontageByTag_Implementation(const FGameplayTag& MontageTag)
+{
+	return ICombatInterface::GetTaggedMontageByTag_Implementation(MontageTag);
+}
+
+FOnASCRegistered& ADPCharacterBase::GetOnASCRegisteredDelegate()
+{
+	return OnASCRegistered;
+}
+
+void ADPCharacterBase::Die(const FVector& DeathImpulse)
+{
+}
+
+FOnDeathSignature& ADPCharacterBase::GetOnDeathDelegate()
+{
+	return OnDeathDelegate;
+}
+
+FOnDamageSignature& ADPCharacterBase::GetOnDamageDelegate()
+{
+	return OnDamageDelegate;
 }
 
 

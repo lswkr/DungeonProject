@@ -10,13 +10,18 @@
 /**
  * 
  */
+
+class UAbilityInfo;
+
 UCLASS()
 class DUNGEONPROJECT_API UDPAbilitySystemLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 
 public:
-	
+	/* Ability System Class Default */
+	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|CharacterClassDefault")
+	static UAbilityInfo* GetAbilityInfo(const UObject* WorldContextObject);
 
 	/* Gameplay Mechanics */
 	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|GameplayMechanics")
@@ -25,6 +30,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|GameplayMechanics")
 	static FGameplayEffectContextHandle ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams);
 
+	
 	
 	/* Effect Context Setters */
 	UFUNCTION(BlueprintCallable, Category = "DPAbilitySystemLibrary|GameplayEffect")

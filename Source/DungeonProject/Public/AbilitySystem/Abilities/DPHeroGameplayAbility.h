@@ -20,5 +20,5 @@ public:
 	ADPHeroCharacter* GetHeroCharacterFromActorInfo();
 	
 private:
-	TWeakObjectPtr<ADPHeroCharacter> CachedHeroCharacter ;
+	TWeakObjectPtr<ADPHeroCharacter> CachedHeroCharacter;
 };

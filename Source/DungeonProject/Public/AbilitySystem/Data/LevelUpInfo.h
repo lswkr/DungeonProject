@@ -9,9 +9,30 @@
 /**
  * 
  */
+
+USTRUCT(BlueprintType)
+struct FDPLevelUpInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 LevelUpXPRequirement = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 AttributePointReward = 1;
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 SpellPointReward = 1;
+};
+
 UCLASS()
 class DUNGEONPROJECT_API ULevelUpInfo : public UDataAsset
 {
 	GENERATED_BODY()
-	
+
+public:
+	UPROPERTY(EditDefaultsOnly)
+	TArray<FDPLevelUpInfo> LevelUpInformation;
+
+	int32 FindLevelForXP(int32 XP) const;
 };

@@ -29,9 +29,6 @@ public:
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
 	
-	
-	FGameplayTag Abilities_Status_Equipped;
-	
 	/* Primary Attributes */
 	FGameplayTag Attributes_Primary_Strength;
 	FGameplayTag Attributes_Primary_Intelligence;
@@ -54,6 +51,18 @@ public:
 	
 	/* Effects */
 	FGameplayTag Effects_HitReact;
+
+	/* Abilities */
+	FGameplayTag Abilities_None;
+	FGameplayTag Abilities_Attack;
+	FGameplayTag Abilities_HitReact;
+
+	FGameplayTag Abilities_Attack_DefaultAttack;
+	
+	FGameplayTag Abilities_Status_Eligible;
+	FGameplayTag Abilities_Status_Equipped;
+	FGameplayTag Abilities_Status_Locked;
+	FGameplayTag Abilities_Status_Unlocked;
 	
 private:
 	static FDPGameplayTags GameplayTags;

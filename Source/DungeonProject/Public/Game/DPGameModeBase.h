@@ -9,9 +9,20 @@
 /**
  * 
  */
+
+class UCharacterClassInfo;
+class UAbilityInfo;
+
 UCLASS()
 class DUNGEONPROJECT_API ADPGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditDefaultsOnly, Category = "Character Class Default")
+	TObjectPtr<UCharacterClassInfo> CharacterClassInfo;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Ability Info")
+	TObjectPtr<UAbilityInfo> AbilityInfo;
+
 };
