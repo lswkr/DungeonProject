@@ -3,3 +3,8 @@
 
 #include "UI/Widget/DPUserWidget.h"
 
+void UDPUserWidget::SetWidgetController(UObject* InWidgetController)
+{
+	WidgetController = InWidgetController;
+	WidgetControllerSet();
+}

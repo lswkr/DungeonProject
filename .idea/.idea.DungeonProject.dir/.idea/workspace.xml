@@ -9,43 +9,18 @@
   <component name="ChangeListManager">
     <list default="true" id="9fbf4f11-01a4-46c3-845b-3b9ae3ccdee5" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DungeonProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DungeonProject.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Hero/Abilities/GA_DefaultComboAttack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Hero/Abilities/GA_DefaultComboAttack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Hero/AnimNotifyState/ANS_ToggleWeapon.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/Hero/AnimNotifyState/ANS_ToggleWeapon.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/ABP_Hero.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/ABP_Hero.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_HeroCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Characters/Hero/BP_HeroCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_AbilityInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_AbilityInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_AttributeInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_AttributeInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_CharacterClassInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_CharacterClassInfo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_LevelUpInfo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/AbilitySystem/data/DA_LevelUpInfo.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Game/BP_DPGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Game/BP_DPGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Items/Weapon/BP_Sword.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Items/Weapon/BP_Sword.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_DPPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_DPPlayerController.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/DevMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/DevMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DungeonProject.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/DungeonProject.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Abilities/DPGameplayAbility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Abilities/DPGameplayAbility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/DPAbilitySystemLibrary.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Data/AbilityInfo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Data/AbilityInfo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Data/AttributeInfo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Data/AttributeInfo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Data/LevelUpInfo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/AbilitySystem/Data/LevelUpInfo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Actor/Items/DPWeaponBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Actor/Items/DPWeaponBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPCharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPCharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPHeroCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Character/DPHeroCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/DPGameplayTags.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/DPGameplayTags.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPGameplayAbility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPHeroGameplayAbility.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Abilities/DPHeroGameplayAbility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAbilitySystemLibrary.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Data/AbilityInfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Data/AbilityInfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Data/AttributeInfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Data/AttributeInfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Data/LevelUpInfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/Data/LevelUpInfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPCharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPCharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPHeroCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Character/DPHeroCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/DPGameplayTags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/DPGameplayTags.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Game/DPGameModeBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Game/DPGameModeBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Interaction/CombatInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Interaction/CombatInterface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Interaction/PlayerInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Interaction/PlayerInterface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/Player/DPPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/Player/DPPlayerState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/HUD/DPHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/HUD/DPHUD.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/UI/Widget/DPUserWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/UI/Widget/DPUserWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/UI/WidgetController/DPWidgetController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/UI/WidgetController/DPWidgetController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Private/UI/WidgetController/OverlayWidgetController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Private/UI/WidgetController/OverlayWidgetController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/Widget/DPUserWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/Widget/DPUserWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/WidgetController/DPWidgetController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/WidgetController/DPWidgetController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/WidgetController/OverlayWidgetController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/DungeonProject/Public/UI/WidgetController/OverlayWidgetController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,11 +39,13 @@
     <setting file="file://$PROJECT_DIR$/Source/DungeonProject/Private/Player/DPPlayerState.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/DungeonProject/Public/AbilitySystem/DPAttributeSet.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/DungeonProject/Public/Player/DPPlayerController.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Private/AbilitySystemComponent.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Plugins/Runtime/GameplayAbilities/Source/GameplayAbilities/Private/GameplayEffectTypes.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Source/Runtime/Engine/Classes/Components/BoxComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Source/Runtime/Engine/Classes/Components/PrimitiveComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.3/Engine/Source/Runtime/UMG/Private/Components/Widget.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -208,6 +185,9 @@
       <workItem from="1756616353192" duration="194000" />
       <workItem from="1756618132519" duration="16827000" />
       <workItem from="1756644443706" duration="9504000" />
+      <workItem from="1756661778784" duration="1642000" />
+      <workItem from="1756705815954" duration="5995000" />
+      <workItem from="1756728023317" duration="5592000" />
     </task>
     <servers />
   </component>
