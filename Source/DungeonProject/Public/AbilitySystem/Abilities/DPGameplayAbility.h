@@ -6,6 +6,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "DPGameplayAbility.generated.h"
 
+class ADPCharacterBase;
 /**
  * 
  */
@@ -21,7 +22,13 @@ public:
 	virtual FString GetDescription(int32 Level);
 	static FString GetLockedDescription(int32 Level);
 
+	UFUNCTION(BlueprintPure, Category = "Ability")
+	ADPCharacterBase* GetAvatarCharacterFromActorInfo();
+	
 protected:
 	float GetManaCost(float InLevel = 1.f) const;
 	float GetCooldown(float InLevel = 1.f) const;
+
+private:
+	TWeakObjectPtr<ADPCharacterBase> CachedAvatarCharacter;
 };

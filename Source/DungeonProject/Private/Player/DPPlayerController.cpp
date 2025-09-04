@@ -179,7 +179,10 @@ void ADPPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 		return;
 	}
 	
-	
+	if (GetASC())
+	{
+		GetASC()->AbilityInputTagHeld(InputTag);
+	}
 }
 
 UDPAbilitySystemComponent* ADPPlayerController::GetASC()

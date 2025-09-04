@@ -44,25 +44,29 @@ bool FDPGameplayEffectContext::NetSerialize(FArchive& Ar, class UPackageMap* Map
 		{
 			RepBits |= 1 << 8;
 		}
-		if (DebuffDamage > 0.f)
+		if (DamageType.IsValid()) 
 		{
 			RepBits |= 1 << 9;
 		}
-		if (DebuffDuration > 0.f)
+		if (DebuffDamage > 0.f)
 		{
 			RepBits |= 1 << 10;
 		}
-		if (DebuffFrequency > 0.f)
+		if (DebuffDuration > 0.f)
 		{
 			RepBits |= 1 << 11;
 		}
-		if (!DeathImpulse.IsZero())
+		if (DebuffFrequency > 0.f)
 		{
 			RepBits |= 1 << 12;
 		}
+		if (!DeathImpulse.IsZero())
+		{
+			RepBits |= 1 << 13;
+		}
 	}
 
-	Ar.SerializeBits(&RepBits, 12);
+	Ar.SerializeBits(&RepBits, 15);
 
 	if (RepBits & (1 << 0))
 	{
@@ -114,23 +118,37 @@ bool FDPGameplayEffectContext::NetSerialize(FArchive& Ar, class UPackageMap* Map
 	{
 		Ar << bIsSuccessfulDebuff;
 	}
+	
 	if (RepBits & (1 << 9))
+	{
+		if (Ar.IsLoading())
+		{
+			if (!DamageType.IsValid())
+			{
+				DamageType = TSharedPtr<FGameplayTag>(new FGameplayTag());
+			}
+		}
+		DamageType->NetSerialize(Ar, Map, bOutSuccess);
+	}
+	
+	if (RepBits & (1 << 10))
 	{
 		Ar << DebuffDamage;
 	}
-	if (RepBits & (1 << 10))
+	if (RepBits & (1 << 11))
 	{
 		Ar << DebuffDuration;
 	}
-	if (RepBits & (1 << 11))
+	if (RepBits & (1 << 12))
 	{
 		Ar << DebuffFrequency;
 	}
-	if (RepBits & (1 << 12))
+
+	if (RepBits & (1 << 13))
 	{
 		DeathImpulse.NetSerialize(Ar, Map, bOutSuccess);
 	}
-	
+
 	if (Ar.IsLoading())
 	{
 		AddInstigator(Instigator.Get(), EffectCauser.Get()); // Just to initialize InstigatorAbilitySystemComponent

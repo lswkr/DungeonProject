@@ -31,6 +31,15 @@ struct FDamageEffectParams
 	float AbilityLevel = 1.f;
 
 	UPROPERTY(BlueprintReadWrite)
+	FGameplayTag DamageType = FGameplayTag();
+
+	UPROPERTY(BlueprintReadWrite)
+	float DebuffChance = 0.f;
+
+	UPROPERTY(BlueprintReadWrite)
+	float DebuffDamage = 0.f;
+	
+	UPROPERTY(BlueprintReadWrite)
 	float DebuffDuration = 0.f;
 	
 	UPROPERTY(BlueprintReadWrite)
@@ -50,8 +59,19 @@ struct FDPGameplayEffectContext : public FGameplayEffectContext
 
 public:
 	bool IsCriticalHit() const {return bIsCriticalHit;}
+	bool IsSuccessfulDebuff() const {return bIsSuccessfulDebuff;}
+	float GetDebuffDamage() const {return DebuffDamage;}
+	float GetDebuffDuration() const { return DebuffDuration; }
+	float GetDebuffFrequency() const { return DebuffFrequency; }
+	TSharedPtr<FGameplayTag> GetDamageType() const {return DamageType;}
 	FVector GetDeathImpulse() const {return DeathImpulse;}
 
+	void SetIsCriticalHit(bool bInIsCriticalHit) {bIsCriticalHit = bInIsCriticalHit;}
+	void SetIsSuccessfulDebuff(bool bInIsDebuff) { bIsSuccessfulDebuff = bInIsDebuff; }
+	void SetDebuffDamage(float InDamage) { DebuffDamage = InDamage; }
+	void SetDebuffDuration(float InDuration) { DebuffDuration = InDuration; }
+	void SetDebuffFrequency(float InFrequency) { DebuffFrequency = InFrequency; }
+	void SetDamageType(TSharedPtr<FGameplayTag> InDamageType) {DamageType = InDamageType;}
 	void SetDeathImpulse(const FVector& InImpulse) {DeathImpulse = InImpulse;}
 
 	virtual UScriptStruct* GetScriptStruct() const override
@@ -89,6 +109,11 @@ protected:
 	UPROPERTY()
 	bool bIsSuccessfulDebuff = false;
 
+	TSharedPtr<FGameplayTag> DamageType;
+
+	UPROPERTY(BlueprintReadWrite)
+	float DebuffChance = 0.f;
+	
 	UPROPERTY()
 	float DebuffDamage = 0.f;
 
@@ -97,7 +122,7 @@ protected:
 
 	UPROPERTY()
 	float DebuffFrequency = 0.f;
-
+	
 	UPROPERTY()
 	FVector DeathImpulse = FVector::ZeroVector;
 };

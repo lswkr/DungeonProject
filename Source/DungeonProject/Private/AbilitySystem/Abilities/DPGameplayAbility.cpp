@@ -4,6 +4,7 @@
 #include "AbilitySystem/Abilities/DPGameplayAbility.h"
 
 #include "AbilitySystem/DPAttributeSet.h"
+#include "Character/DPCharacterBase.h"
 
 FString UDPGameplayAbility::GetDescription(int32 Level)
 {
@@ -13,6 +14,15 @@ FString UDPGameplayAbility::GetDescription(int32 Level)
 FString UDPGameplayAbility::GetLockedDescription(int32 Level)
 {
 	return FString::Printf(TEXT("GetLockedDescription"));
+}
+
+ADPCharacterBase* UDPGameplayAbility::GetAvatarCharacterFromActorInfo()
+{
+	if (!CachedAvatarCharacter.IsValid())
+	{
+		CachedAvatarCharacter = Cast<ADPCharacterBase> (CurrentActorInfo->AvatarActor);
+	}
+	return CachedAvatarCharacter.IsValid() ? CachedAvatarCharacter.Get():nullptr;
 }
 
 float UDPGameplayAbility::GetManaCost(float InLevel) const

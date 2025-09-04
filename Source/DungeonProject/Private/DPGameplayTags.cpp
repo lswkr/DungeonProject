@@ -31,24 +31,24 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 		);
 
 	/* Input Tags */
-	GameplayTags.InputTag_Q = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("InputTag.Q"),
-		FString("Input Tag for Q")
+	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.1"),
+		FString("Input Tag for 1")
 		);
 	
-	GameplayTags.InputTag_W = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("InputTag.W"),
-		FString("Input Tag for W")
+	GameplayTags.InputTag_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.2"),
+		FString("Input Tag for 2")
 		);
 	
-	GameplayTags.InputTag_E = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("InputTag.E"),
-		FString("Input Tag for E")
+	GameplayTags.InputTag_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.3"),
+		FString("Input Tag for 3")
 		);
 	
-	GameplayTags.InputTag_R = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("InputTag.R"),
-		FString("Input Tag for R")
+	GameplayTags.InputTag_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("InputTag.4"),
+		FString("Input Tag for 4")
 		);
 	
 	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
@@ -61,6 +61,12 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 		FString("Input Tag for RMB")
 		);
 
+	/* EventTags */
+		
+	GameplayTags.Event_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Event.HitReact"),
+		FString("Send event to self if Hits enemy")
+		);
 	
 	/* Primary Attributes */
 	GameplayTags.Attributes_Primary_Strength = UGameplayTagsManager::Get().AddNativeGameplayTag(
@@ -137,6 +143,11 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 	FString("Amount of Current Mana")
 	);
 
+	/* Meta Attributes */
+		GameplayTags.Attributes_Meta_IncomingXP = UGameplayTagsManager::Get().AddNativeGameplayTag(
+    	FName("Attributes.Meta.IncomingXP"),
+    	FString("IncomingXP Meta Attributes")
+    	);
 	/* Effects */
 	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 	FName("Effects.HitReact"),
@@ -155,11 +166,21 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 		FString("Attack Ability Tag")
 		);
 
+	GameplayTags.Abilities_Attack_Dash = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Attack.Dash"),
+		FString("Dash Attack")
+		);
 
 	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.HitReact"),
 		FString("Hit React Ability Tag")
 		);
+
+	GameplayTags.Abilities_Passive_ListenForEvent = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Passive.ListenForEvent"),
+		FString("Listen For Event")
+		);
+	
 
 	/* Abilities|Name */
 	GameplayTags.Abilities_Attack_DefaultAttack = UGameplayTagsManager::Get().AddNativeGameplayTag(
@@ -188,5 +209,69 @@ void FDPGameplayTags::InitializeNativeGameplayTags()
 	FName("Abilities.Status.Unlocked"),
 	FString("Unlocked Status")
 	);
+
+	/* DamageType */
+	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Damage"),
+	FString("Damage")
+	);
+
+	GameplayTags.Damage_Physical = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("Damage.Physical"),
+			FString("Physical Damage Type")
+			);
+
+	GameplayTags.Damage_Slash = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		   FName("Damage.Slash"),
+		   FString("Slash Damage Type")
+		   );
+
 	
+	GameplayTags.CombatSocket_RightHand = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			   FName("CombatSocket.RightHand"),
+			   FString("Right Hand Socket")
+			   );
+
+	GameplayTags.CombatSocket_LeftHand = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			   FName("CombatSocket.LeftHand"),
+			   FString("Left Hand Socket")
+			   );
+	
+	GameplayTags.Debuff_Stun = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Debuff.Stun"),
+	FString("Debuff for Physical Damage")
+	);
+	GameplayTags.Debuff_Bleeding = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Debuff.Bleeding"),
+	FString("Debuff for Slash Damage")
+	);
+	GameplayTags.Debuff_Chance = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("Debuff.Chance"),
+	FString("Debuff Chance")
+	);
+	GameplayTags.Debuff_Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+			FName("Debuff.Damage"),
+			FString("Debuff Damage")
+		);
+
+	GameplayTags.Debuff_Duration = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Duration"),
+		FString("Debuff Duration")
+	);
+
+	GameplayTags.Debuff_Frequency = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Debuff.Frequency"),
+		FString("Debuff Frequency")
+	);
+
+	GameplayTags.SkillBaseDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("SkillBaseDamage"),
+		FString("BaseDamage for each skill")
+	);
+
+	
+	/* Map of Damage Types to Debuffs */
+	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Physical, GameplayTags.Debuff_Stun);
+	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Slash, GameplayTags.Debuff_Bleeding);
+
 }

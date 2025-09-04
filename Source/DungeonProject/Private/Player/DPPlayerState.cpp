@@ -24,7 +24,7 @@ void ADPPlayerState::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>&
 	DOREPLIFETIME(ADPPlayerState, Level);
 	DOREPLIFETIME(ADPPlayerState, XP);
 	DOREPLIFETIME(ADPPlayerState, AttributePoints);
-	DOREPLIFETIME(ADPPlayerState, SpellPoints);
+	DOREPLIFETIME(ADPPlayerState, SkillPoints);
 }
 
 void ADPPlayerState::OnRep_Level(int32 OldLevel)
@@ -42,9 +42,9 @@ void ADPPlayerState::OnRep_AttributePoints(int32 OldAttributePoints)
 	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
 }
 
-void ADPPlayerState::OnRep_SpellPoints(int32 OldSpellPoints)
+void ADPPlayerState::OnRep_SkillPoints(int32 OldSkillPoints)
 {
-	OnSpellPointsChangedDelegate.Broadcast(OldSpellPoints);
+	OnSkillPointsChangedDelegate.Broadcast(OldSkillPoints);
 }
 
 UAbilitySystemComponent* ADPPlayerState::GetAbilitySystemComponent() const
@@ -70,10 +70,10 @@ void ADPPlayerState::AddToAttributePoints(int32 InPoints)
 	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
 }
 
-void ADPPlayerState::AddToSpellPoints(int32 InPoints)
+void ADPPlayerState::AddToSkillPoints(int32 InPoints)
 {
-	SpellPoints += InPoints;
-	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
+	SkillPoints += InPoints;
+	OnSkillPointsChangedDelegate.Broadcast(SkillPoints);
 }
 
 void ADPPlayerState::SetLevel(int32 InLevel)
@@ -94,8 +94,8 @@ void ADPPlayerState::SetAttributePoints(int32 InPoints)
 	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
 }
 
-void ADPPlayerState::SetSpellPoints(int32 InPoints)
+void ADPPlayerState::SetSkillPoints(int32 InPoints)
 {
-	SpellPoints = InPoints;
-	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
+	SkillPoints = InPoints;
+	OnSkillPointsChangedDelegate.Broadcast(SkillPoints);
 }

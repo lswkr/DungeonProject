@@ -2,9 +2,14 @@
 
 
 #include "Character/DPCharacterBase.h"
+
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/DPAbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "MotionWarpingComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 
 ADPCharacterBase::ADPCharacterBase()
@@ -15,13 +20,40 @@ ADPCharacterBase::ADPCharacterBase()
 	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetMesh()->SetGenerateOverlapEvents(true);
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
+	
 }
 
+
+void ADPCharacterBase::MulticastHandleDeath_Implementation(const FVector& DeathImpulse)
+{
+	UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation(), GetActorRotation());
+
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetEnableGravity(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	GetMesh()->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	GetMesh()->AddImpulse(DeathImpulse, NAME_None, true);
+
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	bDead = true;
+	//StunDebuffComponent->Deactivate();
+}
+
+void ADPCharacterBase::OnRep_Stunned()
+{
+	
+}
 
 void ADPCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+}
+
+void ADPCharacterBase::StunTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	bIsStunned = NewCount > 0;
+	GetCharacterMovement()->MaxWalkSpeed = bIsStunned ? 0.f : BaseWalkSpeed;
 }
 
 void ADPCharacterBase::InitAbilityActorInfo()
@@ -55,15 +87,19 @@ void ADPCharacterBase::AddCharacterAbilities()
 	DPASC->AddCharacterPassiveAbilities(StartupPassiveAbilities);
 }
 
-void ADPCharacterBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
 void ADPCharacterBase::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ADPCharacterBase, bIsStunned);
+}
+
+float ADPCharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	OnDamageDelegate.Broadcast(DamageTaken);
+	return DamageTaken;
 }
 
 UAbilitySystemComponent* ADPCharacterBase::GetAbilitySystemComponent() const
@@ -73,7 +109,7 @@ UAbilitySystemComponent* ADPCharacterBase::GetAbilitySystemComponent() const
 
 UAnimMontage* ADPCharacterBase::GetHitReactMontage_Implementation()
 {
-	return ICombatInterface::GetHitReactMontage_Implementation();
+	return HitReactMontage;
 }
 
 FVector ADPCharacterBase::GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag)
@@ -83,27 +119,39 @@ FVector ADPCharacterBase::GetCombatSocketLocation_Implementation(const FGameplay
 
 bool ADPCharacterBase::IsDead_Implementation() const
 {
-	return ICombatInterface::IsDead_Implementation();
+	return bDead;
 }
 
 AActor* ADPCharacterBase::GetAvatarActor_Implementation()
 {
-	return ICombatInterface::GetAvatarActor_Implementation();
+	return this;
 }
 
 TArray<FTaggedMontage> ADPCharacterBase::GetAttackMontages_Implementation()
 {
-	return ICombatInterface::GetAttackMontages_Implementation();
+	return AttackMontages;
 }
 
 UNiagaraSystem* ADPCharacterBase::GetHitEffect_Implementation()
 {
-	return ICombatInterface::GetHitEffect_Implementation();
+	return HitEffect;
 }
 
 FTaggedMontage ADPCharacterBase::GetTaggedMontageByTag_Implementation(const FGameplayTag& MontageTag)
 {
-	return ICombatInterface::GetTaggedMontageByTag_Implementation(MontageTag);
+	for (FTaggedMontage TaggedMontage : AttackMontages)
+	{
+		if (TaggedMontage.MontageTag == MontageTag)
+		{
+			return TaggedMontage;
+		}
+	}
+	return FTaggedMontage();
+}
+
+ECharacterClass ADPCharacterBase::GetCharacterClass_Implementation()
+{
+	return CharacterClass;
 }
 
 FOnASCRegistered& ADPCharacterBase::GetOnASCRegisteredDelegate()
@@ -113,6 +161,7 @@ FOnASCRegistered& ADPCharacterBase::GetOnASCRegisteredDelegate()
 
 void ADPCharacterBase::Die(const FVector& DeathImpulse)
 {
+	MulticastHandleDeath(DeathImpulse);
 }
 
 FOnDeathSignature& ADPCharacterBase::GetOnDeathDelegate()

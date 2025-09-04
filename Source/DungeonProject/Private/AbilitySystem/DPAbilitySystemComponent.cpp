@@ -22,11 +22,14 @@ void UDPAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<U
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 		if (const UDPGameplayAbility* DPAbility = Cast<UDPGameplayAbility>(AbilitySpec.Ability))
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Ability Name: [%s]"), *AbilitySpec.GetDebugString());
 			AbilitySpec.DynamicAbilityTags.AddTag(DPAbility->StartupInputTag);
 			AbilitySpec.DynamicAbilityTags.AddTag(FDPGameplayTags::Get().Abilities_Status_Equipped);
 			GiveAbility(AbilitySpec);
 		}
 	}
+	bStartupAbilitiesGiven = true;
+	AbilitiesGivenDelegate.Broadcast();
 }
 
 void UDPAbilitySystemComponent::AddCharacterPassiveAbilities(
@@ -43,10 +46,10 @@ void UDPAbilitySystemComponent::AddCharacterPassiveAbilities(
 void UDPAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)
 {
 	if (!InputTag.IsValid()) return;
-
+	
 	FScopedAbilityListLock ActiveScopedLock(*this);
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
-	{
+	{	
 		if (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
 		{
 			AbilitySpecInputPressed(AbilitySpec);
@@ -61,7 +64,6 @@ void UDPAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& Input
 void UDPAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)
 {
 	if (!InputTag.IsValid()) return;
-
 	FScopedAbilityListLock ActiveScopedLock(*this);
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
@@ -85,7 +87,7 @@ void UDPAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag
 			AbilitySpecInputPressed(AbilitySpec);
 			if (!AbilitySpec.IsActive())
 			{
-				InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
+				TryActivateAbility(AbilitySpec.Handle);
 			}
 		}
 	}
@@ -259,18 +261,37 @@ void UDPAbilitySystemComponent::ServerUpgradeAttribute_Implementation(const FGam
 
 void UDPAbilitySystemComponent::UpdateAbilityStatus(int32 Level)
 {
+	FDPGameplayTags GameplayTags = FDPGameplayTags::Get();
 	UAbilityInfo* AbilityInfo = UDPAbilitySystemLibrary::GetAbilityInfo(GetAvatarActor());
 	for (const FDPAbilityInfo& Info : AbilityInfo->AbilityInformation)
 	{
 		if (!Info.AbilityTag.IsValid()) continue;
 		if (Level<Info.LevelRequirement) continue;
+
+		bool PreSatisfied = true;
+		
+		if (Info.PreAbilityTags.Num() > 0)
+		{
+			for (const FGameplayTag& PreTag : Info.PreAbilityTags)
+			{
+				FGameplayTag PreSkillStatus = GetStatusFromAbilityTag(PreTag);
+				if (PreSkillStatus ==  GameplayTags.Abilities_Status_Locked || PreSkillStatus ==  GameplayTags.Abilities_Status_Eligible || PreSkillStatus == FGameplayTag())
+				{
+					PreSatisfied = false;
+					break;
+				}
+			}
+		}
+
+		if (!PreSatisfied) continue;
+
 		if (GetSpecFromAbilityTag(Info.AbilityTag) == nullptr)
 		{
 			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Info.Ability, 1);
-			AbilitySpec.DynamicAbilityTags.AddTag(FDPGameplayTags::Get().Abilities_Status_Eligible);
+			AbilitySpec.DynamicAbilityTags.AddTag(GameplayTags.Abilities_Status_Eligible);
 			GiveAbility(AbilitySpec);
 			MarkAbilitySpecDirty(AbilitySpec);
-			ClientUpdateAbilityStatus(Info.AbilityTag, FDPGameplayTags::Get().Abilities_Status_Eligible, 1);
+			ClientUpdateAbilityStatus(Info.AbilityTag, GameplayTags.Abilities_Status_Eligible, 1);
 		}
 	}
 }
@@ -408,7 +429,7 @@ void UDPAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySyste
 void UDPAbilitySystemComponent::ClientUpdateAbilityStatus_Implementation(const FGameplayTag& AbilityTag,
 	const FGameplayTag& StatusTag, int32 AbilityLevel)
 {
-	AbilityStatusChanged.Broadcast(AbilityTag, StatusTag, AbilityLevel);
+	AbilityStatusChanged.Broadcast(AbilityTag, StatusTag, AbilityLevel/* , PrerequisiteAbilityTag*/);
 }
 
 

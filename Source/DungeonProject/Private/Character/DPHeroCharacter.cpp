@@ -3,6 +3,7 @@
 
 #include "Character/DPHeroCharacter.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "DPGameplayTags.h"
 #include "Player/DPPlayerState.h"
 #include "AbilitySystem/DPAbilitySystemComponent.h"
@@ -31,6 +32,10 @@ ADPHeroCharacter::ADPHeroCharacter()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);;
 	Camera->bUsePawnControlRotation = false;
 
+	BodyCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("BodyCollision"));
+	BodyCollisionBox->SetupAttachment(GetRootComponent());
+	BodyCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
@@ -40,8 +45,10 @@ ADPHeroCharacter::ADPHeroCharacter()
 void ADPHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-
+	
 	InitAbilityActorInfo();
+	InitializeDefaultAttributes();
+	AddCharacterAbilities();
 }
 
 void ADPHeroCharacter::OnRep_PlayerState()
@@ -111,7 +118,7 @@ void ADPHeroCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
 	ADPPlayerState* DPPlayerState = GetPlayerState<ADPPlayerState>();
 	check(DPPlayerState);
 
-	DPPlayerState->AddToSpellPoints(InSpellPoints);
+	DPPlayerState->AddToSkillPoints(InSpellPoints);
 }
 
 void ADPHeroCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
@@ -133,7 +140,7 @@ int32 ADPHeroCharacter::GetSpellPoints_Implementation() const
 {
 	ADPPlayerState* DPPlayerState = GetPlayerState<ADPPlayerState>();
 	check(DPPlayerState);
-	return DPPlayerState->GetSpellPoints();
+	return DPPlayerState->GetSkillPoints();
 }
 
 int32 ADPHeroCharacter::GetPlayerLevel_Implementation()
@@ -143,19 +150,32 @@ int32 ADPHeroCharacter::GetPlayerLevel_Implementation()
 	return DPPlayerState->GetPlayerLevel();
 }
 
-void ADPHeroCharacter::ToggleCollision_Implementation(bool bShouldEnable)
+void ADPHeroCharacter::ToggleWeaponCollision_Implementation(bool bShouldEnable)
 {
 	check(Weapon);
 
 	if (bShouldEnable)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SetCollision Enabled"));
 		Weapon->GetCollisionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SetCollision Unenabled"));
 		Weapon->GetCollisionBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+	
+}
+
+void ADPHeroCharacter::ToggleBodyCollision_Implementation(bool bShouldEnable)
+{
+	if (bShouldEnable)
+	{
+		BodyCollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+	else
+	{
+		BodyCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	}
 	
 }
@@ -166,7 +186,8 @@ void ADPHeroCharacter::BeginPlay()
 	
 	GetMesh()->HideBoneByName(TEXT("sword_bottom"), EPhysBodyOp::PBO_None);//스워드 및 방패 숨기기
 	GetMesh()->HideBoneByName(TEXT("sword_top"), EPhysBodyOp::PBO_None);//스워드 및 방패 숨기기
-
+	BodyCollisionBox->OnComponentBeginOverlap.AddDynamic(this, &ADPHeroCharacter::OnBodyHit);
+	
 	if(HasAuthority())
 	{
 		FActorSpawnParameters ActorSpawnParameters;
@@ -189,6 +210,29 @@ void ADPHeroCharacter::BeginPlay()
 
 }
 
+void ADPHeroCharacter::OnBodyHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	FGameplayEventData Data;
+	Data.Instigator = this;
+	Data.Target = OtherActor;
+
+	//적군일 때에만 하도록
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+		this,
+		FDPGameplayTags::Get().Event_HitReact,
+		Data
+	);
+
+	
+}
+
+void ADPHeroCharacter::InitializeDefaultAttributes() const
+{
+	Super::InitializeDefaultAttributes();
+	ApplyEffectToSelf(DefaultRegeneratedAttributes,1);
+}
+
 void ADPHeroCharacter::InitAbilityActorInfo()
 {
 	ADPPlayerState* DPPlayerState = GetPlayerState<ADPPlayerState>();
@@ -201,12 +245,13 @@ void ADPHeroCharacter::InitAbilityActorInfo()
 	AttributeSet = DPPlayerState->GetAttributeSet();
 
 	OnASCRegistered.Broadcast(AbilitySystemComponent);
+	AbilitySystemComponent->RegisterGameplayTagEvent(FDPGameplayTags::Get().Debuff_Stun, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &ADPHeroCharacter::StunTagChanged);
 
 	if (ADPPlayerController* DPPlayerController = Cast<ADPPlayerController>(GetController()))
 	{
 		if (ADPHUD* DPHUD = Cast<ADPHUD>(DPPlayerController->GetHUD()))
 		{
-			
+			DPHUD -> InitOverlay(DPPlayerController, DPPlayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
 }

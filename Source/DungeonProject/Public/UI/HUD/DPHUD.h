@@ -9,10 +9,55 @@
 /**
  * 
  */
+
+
+
+class UAttributeMenuWidgetController;
+class UOverlayWidgetController;
+class USkillMenuWidgetController;
+class APlayerController;
+class APlayerState;
+class UAbilitySystemComponent;
+class UAttributeSet;
+class UDPUserWidget;
+
+struct FWidgetControllerParams;
+
 UCLASS()
 class DUNGEONPROJECT_API ADPHUD : public AHUD
 {
 	GENERATED_BODY()
 
+public:
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
+	USkillMenuWidgetController* GetSkillMenuWidgetController(const FWidgetControllerParams& WCParams);
+
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+
+private:
+	UPROPERTY()
+	TObjectPtr<UDPUserWidget> OverlayWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UDPUserWidget> OverlayWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+
+	UPROPERTY()
+	UAttributeMenuWidgetController* AttributeMenuWidgetController;
 	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
+	
+	UPROPERTY()
+	USkillMenuWidgetController* SkillMenuWidgetController;
+	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<USkillMenuWidgetController> SkillMenuWidgetControllerClass;
+
 };

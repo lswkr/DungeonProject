@@ -22,12 +22,15 @@ public:
 	FGameplayTag Player_Block_CursorTrace;
 
 	/* Input Tags */
-	FGameplayTag InputTag_Q;
-	FGameplayTag InputTag_W;
-	FGameplayTag InputTag_E;
-	FGameplayTag InputTag_R;
+	FGameplayTag InputTag_1;
+	FGameplayTag InputTag_2;
+	FGameplayTag InputTag_3;
+	FGameplayTag InputTag_4;
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
+
+	/* Event Tags */
+	FGameplayTag Event_HitReact;
 	
 	/* Primary Attributes */
 	FGameplayTag Attributes_Primary_Strength;
@@ -48,6 +51,9 @@ public:
 	FGameplayTag Attributes_Vital_MaxMana;
 	FGameplayTag Attributes_Vital_Health;
 	FGameplayTag Attributes_Vital_Mana;
+
+	/* Meta Attributes */
+	FGameplayTag Attributes_Meta_IncomingXP;
 	
 	/* Effects */
 	FGameplayTag Effects_HitReact;
@@ -56,14 +62,38 @@ public:
 	FGameplayTag Abilities_None;
 	FGameplayTag Abilities_Attack;
 	FGameplayTag Abilities_HitReact;
-
-	FGameplayTag Abilities_Attack_DefaultAttack;
 	
+	FGameplayTag Abilities_Attack_DefaultAttack;
+	FGameplayTag Abilities_Attack_Dash;
+
+	FGameplayTag Abilities_Passive_ListenForEvent;
+	
+	FGameplayTag Debuff_Bleeding;
+	FGameplayTag Debuff_Stun;
+
+	/* Status */
 	FGameplayTag Abilities_Status_Eligible;
 	FGameplayTag Abilities_Status_Equipped;
 	FGameplayTag Abilities_Status_Locked;
 	FGameplayTag Abilities_Status_Unlocked;
+
+	/* DamageType */
+	FGameplayTag Damage;
+	FGameplayTag Damage_Physical;
+	FGameplayTag Damage_Slash;
+
+	FGameplayTag CombatSocket_RightHand;
+	FGameplayTag CombatSocket_LeftHand;
+
+	FGameplayTag Debuff_Chance;
+	FGameplayTag Debuff_Damage;
+	FGameplayTag Debuff_Duration;
+	FGameplayTag Debuff_Frequency;
 	
+	FGameplayTag SkillBaseDamage;
+	
+	TMap<FGameplayTag, FGameplayTag> DamageTypesToDebuffs;
+
 private:
 	static FDPGameplayTags GameplayTags;
 };

@@ -17,6 +17,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class ADPWeaponBase;
 class UNiagaraComponent;
+class UBoxComponent;
 
 UCLASS()
 class DUNGEONPROJECT_API ADPHeroCharacter : public ADPCharacterBase, public IPlayerInterface
@@ -41,7 +42,8 @@ public:
 	virtual void AddToAttributePoints_Implementation(int32 InAttributePoints) override;
 	virtual int32 GetAttributePoints_Implementation() const override;
 	virtual int32 GetSpellPoints_Implementation() const override;
-	virtual void ToggleCollision_Implementation(bool bShouldEnable) override;
+	virtual void ToggleWeaponCollision_Implementation(bool bShouldEnable) override;
+	virtual void ToggleBodyCollision_Implementation(bool bShouldEnable) override;
 	/* End Player Interface*/
 
 	/* Combat Interface */
@@ -59,17 +61,28 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ADPWeaponBase* GetWeapon() const {return Weapon;}
 
-
 	
 protected:
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	virtual void OnBodyHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> DefaultRegeneratedAttributes;
+
+	virtual void InitializeDefaultAttributes() const override;
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UCameraComponent> Camera;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USpringArmComponent> SpringArm;
+
+	UPROPERTY(EditDefaultsOnly)
+	UBoxComponent* BodyCollisionBox;
+	
+	
 	
 	UPROPERTY()
 	TObjectPtr<ADPWeaponBase> Weapon;

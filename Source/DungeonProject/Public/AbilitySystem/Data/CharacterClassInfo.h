@@ -31,10 +31,8 @@ struct FCharacterClassDefaultInfo
 	TSubclassOf<UGameplayEffect> PrimaryAttribute;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Class Defaults")
-	TArray<TSubclassOf<UGameplayEffect>> StartupAbilities;
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Class Defaults")
-	FScalableFloat XPReward = FScalableFloat();
 };
 UCLASS()
 class DUNGEONPROJECT_API UCharacterClassInfo : public UDataAsset
@@ -57,6 +55,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Common Class Defaults")
 	TSubclassOf<UGameplayEffect> VitalAttribute;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Common Class Defaults")
+	FScalableFloat XPReward = FScalableFloat();
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Common Class Defaults")
 	TArray<TSubclassOf<UGameplayAbility>> CommonAbilities;
 

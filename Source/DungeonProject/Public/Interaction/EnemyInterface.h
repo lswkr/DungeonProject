@@ -6,6 +6,8 @@
 #include "UObject/Interface.h"
 #include "EnemyInterface.generated.h"
 
+class ADPProjectileBase;
+
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UEnemyInterface : public UInterface
@@ -27,4 +29,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	AActor* GetCombatTarget();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	TSubclassOf<ADPProjectileBase> GetProjectileClass();
+
+	
 };

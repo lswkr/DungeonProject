@@ -29,7 +29,7 @@ void UDPWidgetController::BindCallbacksToDependencies()
 void UDPWidgetController::BroadcastAbilityInfo()
 {
 	if (!GetDPAbilitySystemComponent()->bStartupAbilitiesGiven) return; //StartupAbility없으면 return;
-
+	UE_LOG(LogTemp, Log, TEXT("bStartupAbilitiesGiven == true"));
 	FForEachAbility BroadcastDelegate;//람다 함수는 UDPAbilitySystemComponent::ForEachAbility에서 Activatable Abilities들 Execute된다.
 	BroadcastDelegate.BindLambda([this](const FGameplayAbilitySpec& AbilitySpec)
 	{
